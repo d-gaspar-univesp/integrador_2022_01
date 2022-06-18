@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title= `${title}`
+    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/styles.css')
+
+  body
+
+    div.row.no-gutters
+      div.col.no-gutters
+        div.div-left
+          block content
+      div.col.no-gutters
+        div.div-right
+          if json.length
+            table.listing-table.table-dark.table-striped
+              thead
+                tr
+                  th id
+                  th nome_arquivo
+                  th data_upload
+                  th data_evento
+                  th hora_evento
+                  th status
+              tbody
+                each elem,i in json
+                  tr
+                    td #{elem.id}
+                    td #{elem.nome_arquivo}
+                    td #{elem.data_upload}
+                    td #{elem.data_evento}
+                    td #{elem.hora_evento}
+                    td #{elem.status}
+          else
+            p Sem registros carregados.
