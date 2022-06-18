@@ -4,9 +4,10 @@ html
     title= `${title}`
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/styles.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+    script(src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js")
 
   body
-
     div.row.no-gutters
       div.col.no-gutters
         div.div-left
@@ -14,23 +15,82 @@ html
       div.col.no-gutters
         div.div-right
           if json.length
+            div.div-right-header.no-gutters
+              b Nome do arquivo:
+              p #{nome_arquivo}
             table.listing-table.table-dark.table-striped
               thead
                 tr
                   th id
-                  th nome_arquivo
-                  th data_upload
                   th data_evento
                   th hora_evento
+                  th turno
                   th status
               tbody
                 each elem,i in json
                   tr
                     td #{elem.id}
-                    td #{elem.nome_arquivo}
-                    td #{elem.data_upload}
                     td #{elem.data_evento}
                     td #{elem.hora_evento}
+                    td #{elem.turno}
                     td #{elem.status}
           else
             p Sem registros carregados.
+
+
+
+    script.
+      var xValues = ["T1", "T2", "T3"];
+      var yValues_B = [!{status_B[0]}, !{status_B[1]}, !{status_B[2]}];
+      var yValues_E = [!{status_E[0]}, !{status_E[1]}, !{status_E[2]}];
+      var barColors = [
+        "#b91d47",
+        "#2b5797",
+        "#1e7145"
+      ];
+
+      new Chart("doughnutChart_B", {
+        type: "doughnut",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues_B
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Status B (Total: " + !{status_B_total} + ')'
+          },
+          plugins: {
+            labels: {
+              render: 'value',
+              fontColor: '#fff'
+            }
+          }
+        }
+      });
+
+      new Chart("doughnutChart_E", {
+        type: "doughnut",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues_E
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Status E (Total: " + !{status_E_total} + ')'
+          },
+          plugins: {
+            labels: {
+              render: 'value',
+              fontColor: '#fff'
+            }
+          }
+        }
+      });
