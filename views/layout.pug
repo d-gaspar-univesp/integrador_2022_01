@@ -38,13 +38,13 @@ html
             p Sem registros carregados.
 
     script.
-      var xValues = ["B", "E"];
+      var xValues = ["Bom", "Ruim"];
       var yValues_T1 = [!{status["T1"]["B"]}, !{status["T1"]["E"]}];
       var yValues_T2 = [!{status["T2"]["B"]}, !{status["T2"]["E"]}];
       var yValues_T3 = [!{status["T3"]["B"]}, !{status["T3"]["E"]}];
       var barColors = [
-        "#b91d47",
-        "#2b5797"
+        "#1a9850",
+        "#b91d47"
       ];
       
       new Chart("doughnutChart_T1", {
