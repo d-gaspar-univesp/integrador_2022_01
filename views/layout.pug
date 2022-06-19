@@ -37,31 +37,29 @@ html
           else
             p Sem registros carregados.
 
-
-
     script.
-      var xValues = ["T1", "T2", "T3"];
-      var yValues_B = [!{status_B[0]}, !{status_B[1]}, !{status_B[2]}];
-      var yValues_E = [!{status_E[0]}, !{status_E[1]}, !{status_E[2]}];
+      var xValues = ["B", "E"];
+      var yValues_T1 = [!{status["T1"]["B"]}, !{status["T1"]["E"]}];
+      var yValues_T2 = [!{status["T2"]["B"]}, !{status["T2"]["E"]}];
+      var yValues_T3 = [!{status["T3"]["B"]}, !{status["T3"]["E"]}];
       var barColors = [
         "#b91d47",
-        "#2b5797",
-        "#1e7145"
+        "#2b5797"
       ];
-
-      new Chart("doughnutChart_B", {
+      
+      new Chart("doughnutChart_T1", {
         type: "doughnut",
         data: {
           labels: xValues,
           datasets: [{
             backgroundColor: barColors,
-            data: yValues_B
+            data: yValues_T1
           }]
         },
         options: {
           title: {
             display: true,
-            text: "Status B (Total: " + !{status_B_total} + ')'
+            text: "T1 (Total: " + !{status["T1"]["B"] + status["T1"]["E"]} + ')'
           },
           plugins: {
             labels: {
@@ -72,19 +70,19 @@ html
         }
       });
 
-      new Chart("doughnutChart_E", {
+      new Chart("doughnutChart_T2", {
         type: "doughnut",
         data: {
           labels: xValues,
           datasets: [{
             backgroundColor: barColors,
-            data: yValues_E
+            data: yValues_T2
           }]
         },
         options: {
           title: {
             display: true,
-            text: "Status E (Total: " + !{status_E_total} + ')'
+            text: "T2 (Total: " + !{status["T2"]["B"] + status["T2"]["E"]} + ')'
           },
           plugins: {
             labels: {
@@ -92,5 +90,47 @@ html
               fontColor: '#fff'
             }
           }
+        }
+      });
+
+      new Chart("doughnutChart_T3", {
+        type: "doughnut",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues_T3
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "T3 (Total: " + !{status["T3"]["B"] + status["T3"]["E"]} + ')'
+          },
+          plugins: {
+            labels: {
+              render: 'value',
+              fontColor: '#fff'
+            }
+          }
+        }
+      });
+
+      var xValues_line_T1 = !{JSON.stringify(yield_T1["yield"])};
+      var xLabels_line_T1 = !{JSON.stringify(yield_T1["date"])};
+      
+      console.log('dsffsdsdf');
+
+      new Chart("lineChart_T1", {
+        type: "line", 
+        data: {
+          labels: xLabels_line_T1,
+          datasets: [{
+            label: 'Yield (T1)',
+            data: xValues_line_T1,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }]
         }
       });
