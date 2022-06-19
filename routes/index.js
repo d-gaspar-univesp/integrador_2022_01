@@ -65,7 +65,9 @@ https.get(url, (resp) => {
     // json loop
     for (var i in json) {
       var hour = json[i]["hora_evento"].split(":")[0]
-      var date = json[i]["data_evento"];
+      var date = json[i]["data_evento"].split("-");
+      date = date[2] + '-' + date[1] + '-' + date[0];
+      json[i]["data_evento"] = date;
 
       if (!(date in yield)) {
         yield[date] = ["T1", "T2", "T3"];
@@ -121,6 +123,7 @@ https.get(url, (resp) => {
       //console.log(i + ' ' + hour + ' ' + json[i]["turno"]);
     }
 
+    // yield
     for (date in yield) {
       if ((yield[date]["T1"]["B"] + yield[date]["T1"]["E"]) == 0) {
         yield_T1["date"].push(date);
