@@ -118,8 +118,7 @@ html
 
       var xValues_line_T1 = !{JSON.stringify(yield_T1["yield"])};
       var xLabels_line_T1 = !{JSON.stringify(yield_T1["date"])};
-      
-      console.log('dsffsdsdf');
+      var xColors_line_T1 = !{JSON.stringify(yield_T1["color"])};
 
       new Chart("lineChart_T1", {
         type: "line", 
@@ -128,8 +127,47 @@ html
           datasets: [{
             label: 'Yield (T1)',
             data: xValues_line_T1,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: xColors_line_T1,
+            tension: 0.1
+          }]
+        }
+      });
+
+      var xValues_line_T2 = !{JSON.stringify(yield_T2["yield"])};
+      var xLabels_line_T2 = !{JSON.stringify(yield_T2["date"])};
+      var xColors_line_T2 = !{JSON.stringify(yield_T2["color"])};
+
+      new Chart("lineChart_T2", {
+        type: "line", 
+        data: {
+          labels: xLabels_line_T2,
+          datasets: [{
+            label: 'Yield (T2)',
+            data: xValues_line_T2,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: xColors_line_T2,
+            tension: 0.1
+          }]
+        }
+      });
+
+      var xValues_line_T3 = !{JSON.stringify(yield_T3["yield"])};
+      var xLabels_line_T3 = !{JSON.stringify(yield_T3["date"])};
+      var xColors_line_T3 = Object.assign([], !{JSON.stringify(yield_T3["color"])});
+
+      new Chart("lineChart_T3", {
+        type: "line", 
+        data: {
+          labels: xLabels_line_T3,
+          datasets: [{
+            label: 'Yield (T3)',
+            data: xValues_line_T3,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: xColors_line_T3,
             tension: 0.1
           }]
         }
